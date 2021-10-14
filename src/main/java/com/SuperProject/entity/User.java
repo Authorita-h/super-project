@@ -23,13 +23,6 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
-    private MyRole myRole;
-
-
-    public void setMyRole(MyRole myRole) {
-        this.myRole = myRole;
-    }
-
     public User() {
     }
 

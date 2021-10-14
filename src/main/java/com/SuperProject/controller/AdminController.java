@@ -22,7 +22,7 @@ public class AdminController {
     @GetMapping("/users")
     public String userList(Model model) {
         model.addAttribute("allUsers", userService.allUsers());
-        return "admin";
+        return "admin_users";
     }
 
     @PostMapping("/users")
@@ -35,9 +35,5 @@ public class AdminController {
         return "redirect:/admin/users";
     }
 
-    @GetMapping("/admin/gt/{userId}")
-    public String  gtUser(@PathVariable("userId") Long userId, Model model) {
-        model.addAttribute("allUsers", userService.usergtList(userId));
-        return "admin_users";
-    }
+
 }

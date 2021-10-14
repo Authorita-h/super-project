@@ -1,8 +1,10 @@
 package com.SuperProject.service;
 
-import com.SuperProject.entity.MyRole;
+
+import com.SuperProject.entity.Owner;
 import com.SuperProject.entity.Role;
 import com.SuperProject.entity.User;
+import com.SuperProject.repository.OwnerRepository;
 import com.SuperProject.repository.RoleRepository;
 import com.SuperProject.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,8 @@ public class UserService implements UserDetailsService {
     @Autowired
     RoleRepository roleRepository;
     @Autowired
+    OwnerRepository ownerRepository;
+    @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -49,25 +53,38 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
-    public boolean saveUser(User user, String string) {
+    public boolean saveOwner(User user) {
         User userFromDB = userRepository.findByUsername(user.getUsername());
-
         if (userFromDB != null) {
             return false;
         }
-
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+        user.setRoles(Collections.singleton(new Role(2L, "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        switch (string) {
-            case "OWNER":
-                user.setMyRole(MyRole.OWNER);
-                break;
-            case "VISITOR":
-                user.setMyRole(MyRole.VISITOR);
-                break;
-            case "WORKER":
-                user.setMyRole(MyRole.WORKER);
+        userRepository.save(user);
+        Owner owner = new Owner();
+        owner.setMyUser(user);
+        ownerRepository.save(owner);
+        return true;
+    }
+
+    public boolean saveVisitor(User user) {
+        User userFromDB = userRepository.findByUsername(user.getUsername());
+        if (userFromDB != null) {
+            return false;
         }
+        user.setRoles(Collections.singleton(new Role(4L, "ROLE_USER")));
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+        return true;
+    }
+
+    public boolean saveWorker(User user) {
+        User userFromDB = userRepository.findByUsername(user.getUsername());
+        if (userFromDB != null) {
+            return false;
+        }
+        user.setRoles(Collections.singleton(new Role(3L, "ROLE_USER")));
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
     }

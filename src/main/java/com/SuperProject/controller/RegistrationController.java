@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 
 @Controller
-public class RegistrationController {
+public class    RegistrationController {
 
     @Autowired
     private UserService userService;
@@ -38,19 +38,19 @@ public class RegistrationController {
         }
         switch (myStatus) {
             case "OWNER":
-                if (!userService.saveUser(userForm, myStatus)){
+                if (!userService.saveOwner(userForm )){
                     model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
                     return "registration";
                 }
                 break;
             case "WORKER":
-                if (!userService.saveUser(userForm, myStatus)){
+                if (!userService.saveWorker(userForm)){
                     model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
                     return "registration";
                 }
                 break;
             case "VISITOR":
-                if (!userService.saveUser(userForm, myStatus)){
+                if (!userService.saveVisitor(userForm)){
                     model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
                     return "registration";
                 }
