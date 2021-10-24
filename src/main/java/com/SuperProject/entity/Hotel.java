@@ -17,7 +17,16 @@ public class Hotel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
+    private String name; // Название отеля
 
     private int rooms;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="owner_id")
+    private User owner;
+
+    @OneToOne
+    private User seller = null;
+
+    private boolean Sale = false;
 }

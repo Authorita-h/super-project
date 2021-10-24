@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,7 +21,26 @@ public class Owner {
     @OneToOne
     private User myUser;
 
-    @OneToOne
-    private Hotel myHotel;
+    private int workplace=0;
+
+    private int freeWorkplace=0;
+
+    public void addNewWorkplace() {
+        this.freeWorkplace++;
+        this.workplace++;
+    }
+
+    public void delWorkplace() {
+        this.freeWorkplace--;
+        this.workplace--;
+    }
+
+    public void addNewWorker() {
+        this.freeWorkplace--;
+    }
+
+    public void delWorker() {
+        this.freeWorkplace++;
+    }
 
 }

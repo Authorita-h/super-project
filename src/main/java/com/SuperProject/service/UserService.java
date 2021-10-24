@@ -7,7 +7,10 @@ import com.SuperProject.entity.User;
 import com.SuperProject.repository.OwnerRepository;
 import com.SuperProject.repository.RoleRepository;
 import com.SuperProject.repository.UserRepository;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,11 +19,15 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.security.Principal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+
 @Service
+@Data
+@AllArgsConstructor
 public class UserService implements UserDetailsService {
     @PersistenceContext
     private EntityManager em;
@@ -29,9 +36,9 @@ public class UserService implements UserDetailsService {
     @Autowired
     RoleRepository roleRepository;
     @Autowired
-    OwnerRepository ownerRepository;
-    @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    OwnerRepository ownerRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -42,6 +49,13 @@ public class UserService implements UserDetailsService {
         }
 
         return user;
+    }
+
+    public User getCurrentUser(Principal principal) {
+
+        return ((User) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal());
     }
 
     public User findUserById(Long userId) {
@@ -101,4 +115,9 @@ public class UserService implements UserDetailsService {
         return em.createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
                 .setParameter("paramId", idMin).getResultList();
     }
+
+    public User findByUsername(String owner) {
+        return userRepository.findByUsername(owner);
+    }
+
 }

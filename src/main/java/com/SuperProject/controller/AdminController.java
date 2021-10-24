@@ -1,5 +1,9 @@
 package com.SuperProject.controller;
 
+import com.SuperProject.entity.Hotel;
+import com.SuperProject.entity.Owner;
+import com.SuperProject.service.HotelInfoService;
+import com.SuperProject.service.HotelService;
 import com.SuperProject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +17,56 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private HotelService hotelService;
+
+    @Autowired
+    private HotelInfoService hotelInfoService;
+
     @GetMapping
     public ModelAndView controlPanel(ModelAndView model) {
         model.setViewName("admin_panel");
         return model;
     }
+
+    @GetMapping("/hotel_history")
+    public ModelAndView infoList(ModelAndView model) {
+        model.addObject("hotels", hotelInfoService.getAll());
+        model.setViewName("admin_hotels_info");
+        return model;
+    }
+
+
+    // Hotel
+
+    @PostMapping("/hotel_add")
+    public ModelAndView createHotelFinish(ModelAndView model,
+                                          @RequestParam(name = "ownerName") String owner,
+                                          @RequestParam(name = "hotelName") String name,
+                                          @RequestParam(name = "rooms") int rooms) {
+        Hotel hotel = new Hotel();
+        hotel.setRooms(rooms);
+        hotel.setName(name);
+        hotel.setOwner(userService.findByUsername(owner));
+        model.addObject("hotel", hotelService.createHotel(hotel));
+        model.setViewName("admin_panel");
+        return model;
+    }
+
+    @GetMapping("/hotel_add")
+    public ModelAndView createHotel(ModelAndView model, @ModelAttribute(name = "hotel") Hotel hotel) {
+        model.setViewName("admin_add_hotel");
+        return model;
+    }
+
+    @GetMapping("/hotels")
+    public ModelAndView hotelList(ModelAndView model) {
+        model.addObject("hotelList", hotelService.getAll());
+        model.setViewName("admin_hotels");
+        return model;
+    }
+
+    // User
 
     @GetMapping("/users")
     public String userList(Model model) {
@@ -33,6 +82,12 @@ public class AdminController {
             userService.deleteUser(userId);
         }
         return "redirect:/admin/users";
+    }
+
+    @GetMapping("/admin/gt/{userId}")
+    public String  gtUser(@PathVariable("userId") Long userId, Model model) {
+        model.addAttribute("allUsers", userService.usergtList(userId));
+        return "admin_users";
     }
 
 

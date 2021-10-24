@@ -10,29 +10,27 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "t_worker")
-public class Worker {
+@Table(name = "t_hotel_info")
+public class HotelInfo {
+
+//
+//  Запись о продаже/покупке отеля
+//
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long id; // Id операции
+
+    private String date;
 
     @OneToOne
-    private User myUser;
-
-    @ManyToOne
-    private User employer;
-
-    @ManyToOne
     private Hotel hotel;
 
+    @OneToOne
+    private User seller;
 
-    private String name;
+    @OneToOne
+    private User buyer;
 
-    private String surname;
-
-    private int ex; // опыт работы
-
-    private TimeType timeType;
 
 }
