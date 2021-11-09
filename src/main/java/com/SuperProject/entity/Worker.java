@@ -35,4 +35,6 @@ public class Worker {
 
     private TimeType timeType;
 
+    private String task;
+
 }

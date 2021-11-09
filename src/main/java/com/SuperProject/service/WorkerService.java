@@ -24,6 +24,16 @@ public class WorkerService {
         return workerRepository.findWorkerByMyUser(user);
     }
 
+    public Worker findById(Long id) {
+        return workerRepository.findById(id);
+    }
+
+    public void addTask(String task, Worker worker) {
+        // Worker worker = workerRepository.findWorkerByMyUser(user);
+        worker.setTask(task);
+        workerRepository.save(worker);
+    }
+
     public Worker save(Worker worker) {
         return workerRepository.save(worker);
     }

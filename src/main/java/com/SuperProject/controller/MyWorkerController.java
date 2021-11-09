@@ -1,9 +1,8 @@
 package com.SuperProject.controller;
 
 
-import com.SuperProject.entity.TimeType;
-import com.SuperProject.entity.User;
-import com.SuperProject.entity.Worker;
+import com.SuperProject.entity.*;
+import com.SuperProject.service.HotelService;
 import com.SuperProject.service.OwnerService;
 import com.SuperProject.service.UserService;
 import com.SuperProject.service.WorkerService;
@@ -28,6 +27,8 @@ public class MyWorkerController {
     private final OwnerService ownerService;
 
     private final UserService userService;
+
+    private final HotelService hotelService;
 
     @GetMapping("/home")
     public ModelAndView homePage(ModelAndView model, @RequestParam(defaultValue = "User") String name) {
@@ -126,13 +127,21 @@ public class MyWorkerController {
     }
 
     @GetMapping("/hotel_info")
-    public String hotel_info(){
-        return "worker_info";
+    public ModelAndView hotel_info(ModelAndView model, @AuthenticationPrincipal User worker){
+        Worker worker1 = workerService.findByUser(worker);
+        Owner owner1 = ownerService.findByUser(worker1.getEmployer());
+        List<Hotel> hotelList = hotelService.getByOwner(owner1.getMyUser());
+        model.addObject("hotelList", hotelList);
+        model.setViewName("worker_info");
+        return model;
     }
 
     @GetMapping("/hotel_task")
-    public String hotel_task(){
-        return "worker_task";
+    public ModelAndView hotel_task(ModelAndView model, @AuthenticationPrincipal User worker){
+        Worker worker1 = workerService.findByUser(worker);
+        model.addObject("worker", worker1);
+        model.setViewName("worker_task");
+        return model;
     }
 
 }

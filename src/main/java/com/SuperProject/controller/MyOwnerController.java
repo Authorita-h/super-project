@@ -1,10 +1,7 @@
 package com.SuperProject.controller;
 
 
-import com.SuperProject.entity.Hotel;
-import com.SuperProject.entity.Owner;
-import com.SuperProject.entity.User;
-import com.SuperProject.entity.Worker;
+import com.SuperProject.entity.*;
 import com.SuperProject.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.Date;
 import java.util.List;
 
@@ -31,7 +29,7 @@ public class MyOwnerController {
     private final WorkerService workerService;
 
     @GetMapping("/home")
-    public ModelAndView homePage(ModelAndView model, @RequestParam(defaultValue = "User") String name) {
+    public ModelAndView homePage(@AuthenticationPrincipal User user, ModelAndView model, @RequestParam(defaultValue = "User") String name) {
         model.addObject("name", name);
         model.setViewName("owner_home");
         return model;
@@ -141,6 +139,32 @@ public class MyOwnerController {
         workerService.delOwner(myWorker);
         ownerService.delWorker(myUser);
         return "redirect:/owner/home";
+    }
+
+    // ТАСКУ ДАЕМ ТУТ !!!
+
+    @PostMapping("/workers/task")
+    public ModelAndView give_task(ModelAndView model,
+                                @RequestParam(name = "worker") Long workerId,
+                                @AuthenticationPrincipal User myUser) {
+        User user = userService.findUserById(workerId);
+        Worker worker = workerService.findByUser(user);
+        model.addObject("worker", worker);
+        System.out.println("HERE!!!!!!!!!!!GGGGGGGGG");
+        model.setViewName("owner_workers_task");
+        return model;
+    }
+
+    @PostMapping("/workers/task_final")
+    public ModelAndView task_final(ModelAndView model,
+                                        @RequestParam(name = "task") String task,
+                                        @RequestParam(name = "worker") Long workerId) {
+        System.out.println("Task: " + task + "ID " + workerId);
+//        User user = userService.findUserById(workerId);
+        Worker worker = workerService.findById(workerId);
+        workerService.addTask(task,worker);
+        model.setViewName("owner_home");
+        return model;
     }
 
 }
