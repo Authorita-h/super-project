@@ -16,6 +16,67 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `databasechangelog`
+--
+
+DROP TABLE IF EXISTS `databasechangelog`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `databasechangelog` (
+                                     `ID` varchar(255) NOT NULL,
+                                     `AUTHOR` varchar(255) NOT NULL,
+                                     `FILENAME` varchar(255) NOT NULL,
+                                     `DATEEXECUTED` datetime NOT NULL,
+                                     `ORDEREXECUTED` int NOT NULL,
+                                     `EXECTYPE` varchar(10) NOT NULL,
+                                     `MD5SUM` varchar(35) DEFAULT NULL,
+                                     `DESCRIPTION` varchar(255) DEFAULT NULL,
+                                     `COMMENTS` varchar(255) DEFAULT NULL,
+                                     `TAG` varchar(255) DEFAULT NULL,
+                                     `LIQUIBASE` varchar(20) DEFAULT NULL,
+                                     `CONTEXTS` varchar(255) DEFAULT NULL,
+                                     `LABELS` varchar(255) DEFAULT NULL,
+                                     `DEPLOYMENT_ID` varchar(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `databasechangelog`
+--
+
+LOCK TABLES `databasechangelog` WRITE;
+/*!40000 ALTER TABLE `databasechangelog` DISABLE KEYS */;
+INSERT INTO `databasechangelog` VALUES ('bd_export','kirill','classpath:/db/changelog/db.changelog-master.yaml','2021-10-25 18:32:59',1,'EXECUTED','8:976f9894a1ed2045235155600f4bd6f7','sqlFile','',NULL,'3.10.3',NULL,NULL,'5175978370');
+/*!40000 ALTER TABLE `databasechangelog` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `databasechangeloglock`
+--
+
+DROP TABLE IF EXISTS `databasechangeloglock`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `databasechangeloglock` (
+                                         `ID` int NOT NULL,
+                                         `LOCKED` bit(1) NOT NULL,
+                                         `LOCKGRANTED` datetime DEFAULT NULL,
+                                         `LOCKEDBY` varchar(255) DEFAULT NULL,
+                                         PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `databasechangeloglock`
+--
+
+LOCK TABLES `databasechangeloglock` WRITE;
+/*!40000 ALTER TABLE `databasechangeloglock` DISABLE KEYS */;
+INSERT INTO `databasechangeloglock` VALUES (1,_binary '\0',NULL,NULL);
+/*!40000 ALTER TABLE `databasechangeloglock` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `hibernate_sequence`
 --
 
@@ -33,7 +94,7 @@ CREATE TABLE `hibernate_sequence` (
 
 LOCK TABLES `hibernate_sequence` WRITE;
 /*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
-INSERT INTO `hibernate_sequence` VALUES (12);
+INSERT INTO `hibernate_sequence` VALUES (16);
 /*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -65,7 +126,7 @@ CREATE TABLE `t_hotel` (
 
 LOCK TABLES `t_hotel` WRITE;
 /*!40000 ALTER TABLE `t_hotel` DISABLE KEYS */;
-INSERT INTO `t_hotel` VALUES (4,'owner_hotel',1111,5,_binary '\0',NULL),(7,'hotel_one',1,2,_binary '\0',NULL);
+INSERT INTO `t_hotel` VALUES (4,'owner_hotel',1111,5,_binary '\0',NULL),(7,'hotel_one',1,2,_binary '\0',NULL),(12,'Hotel',1111,2,_binary '\0',NULL);
 /*!40000 ALTER TABLE `t_hotel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,7 +159,7 @@ CREATE TABLE `t_hotel_info` (
 
 LOCK TABLES `t_hotel_info` WRITE;
 /*!40000 ALTER TABLE `t_hotel_info` DISABLE KEYS */;
-INSERT INTO `t_hotel_info` VALUES (8,'Sun Oct 24 14:03:02 MSK 2021',2,7,5),(9,'Sun Oct 24 14:03:21 MSK 2021',5,4,2);
+INSERT INTO `t_hotel_info` VALUES (8,'Sun Oct 24 14:03:02 MSK 2021',2,7,5),(9,'Sun Oct 24 14:03:21 MSK 2021',5,4,2),(13,'Mon Oct 25 18:35:18 MSK 2021',2,12,5),(15,'Mon Nov 08 19:22:28 MSK 2021',2,12,2);
 /*!40000 ALTER TABLE `t_hotel_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,7 +187,7 @@ CREATE TABLE `t_owner` (
 
 LOCK TABLES `t_owner` WRITE;
 /*!40000 ALTER TABLE `t_owner` DISABLE KEYS */;
-INSERT INTO `t_owner` VALUES (3,0,1,2),(6,0,0,5);
+INSERT INTO `t_owner` VALUES (3,1,2,2),(6,0,0,5);
 /*!40000 ALTER TABLE `t_owner` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,7 +236,7 @@ CREATE TABLE `t_user` (
 
 LOCK TABLES `t_user` WRITE;
 /*!40000 ALTER TABLE `t_user` DISABLE KEYS */;
-INSERT INTO `t_user` VALUES (1,'$2a$10$WDd3DEjw1jYpDfb/haUBBuQtwtAMtiNuCoZhRE/FIz5HPSEY7.LIC','admin'),(2,'$2a$10$Jym./aA3IKKxDa/KBCaQwOZc59T2UVyZwCq6FyBTBs/JJf5OmIAHm','owner'),(5,'$2a$10$PChGT/LNPylHmSVeDyRrGODtiWQKm2bXrZWR2rM0ci6yXAA26pM4u','owner1'),(10,'$2a$10$IdkDoEBOsPxyX7ND6YIwV.lgHDJ6.A0/5mtc/C.RrY4d7y.ABzxxu','worker');
+INSERT INTO `t_user` VALUES (1,'$2a$10$WDd3DEjw1jYpDfb/haUBBuQtwtAMtiNuCoZhRE/FIz5HPSEY7.LIC','admin'),(2,'$2a$10$Jym./aA3IKKxDa/KBCaQwOZc59T2UVyZwCq6FyBTBs/JJf5OmIAHm','owner'),(5,'$2a$10$PChGT/LNPylHmSVeDyRrGODtiWQKm2bXrZWR2rM0ci6yXAA26pM4u','owner1'),(10,'$2a$10$IdkDoEBOsPxyX7ND6YIwV.lgHDJ6.A0/5mtc/C.RrY4d7y.ABzxxu','worker'),(14,'$2a$10$Ao9skAA62WmTy/2l91ClSO.HIukLAI5H/JZ5ApgyROCRQw5PSMiHi','visitor');
 /*!40000 ALTER TABLE `t_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -202,7 +263,7 @@ CREATE TABLE `t_user_roles` (
 
 LOCK TABLES `t_user_roles` WRITE;
 /*!40000 ALTER TABLE `t_user_roles` DISABLE KEYS */;
-INSERT INTO `t_user_roles` VALUES (1,1),(2,2),(5,2),(10,3);
+INSERT INTO `t_user_roles` VALUES (1,1),(2,2),(5,2),(10,3),(14,4);
 /*!40000 ALTER TABLE `t_user_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -250,6 +311,7 @@ CREATE TABLE `t_worker` (
                             `employer_id` bigint DEFAULT NULL,
                             `hotel_id` bigint DEFAULT NULL,
                             `my_user_id` bigint DEFAULT NULL,
+                            `task` varchar(255) DEFAULT NULL,
                             PRIMARY KEY (`id`),
                             KEY `FKh4bw1r81ljq7sqr6ogs86ufl` (`employer_id`),
                             KEY `FK12vghor7e8cc5tcc806r3gb8d` (`hotel_id`),
@@ -266,7 +328,7 @@ CREATE TABLE `t_worker` (
 
 LOCK TABLES `t_worker` WRITE;
 /*!40000 ALTER TABLE `t_worker` DISABLE KEYS */;
-INSERT INTO `t_worker` VALUES (11,20,'Kirill','Pavl',2,2,NULL,10);
+INSERT INTO `t_worker` VALUES (11,20,'Kirill','Pavl',2,2,NULL,10,'aeawfw');
 /*!40000 ALTER TABLE `t_worker` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -279,4 +341,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-10-24 16:40:03
+-- Dump completed on 2021-11-11 11:10:33
