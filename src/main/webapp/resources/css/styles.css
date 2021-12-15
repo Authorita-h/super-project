@@ -1,0 +1,77 @@
+/*table {*/
+/*    border-collapse: collapse;*/
+/*}*/
+
+/*table, th, td {*/
+/*    border: 1px solid black;*/
+/*}*/
+
+body {
+    font-family: sans-serif;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* высота веб-страницы больше или равна высоте окна браузера */
+    margin: 0;
+    background-color: #f5f5f5;
+}
+
+.login_body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+
+section {
+    flex: 1; /* если содержимое body меньше высоты окна, то section будет растянут до нужной величины */
+    width: 66%;
+    margin: auto;
+}
+
+footer span {
+    margin-left: 20px;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.content-nonetable {
+  width: 50%;
+  margin: auto;
+  text-align: start;
+}
+
+.content-buttons {
+  width: 80%;
+  text-align: end;
+}
+
+.content-f {
+    width: 60%;
+}

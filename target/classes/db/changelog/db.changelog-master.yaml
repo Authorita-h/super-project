@@ -1,0 +1,12 @@
+databaseChangeLog:
+  - changeSet:
+      validCheckSum: ANY
+      id: bd_export
+      author: kirill
+      preConditions:
+        - onFail: HALT
+      changes:
+        - sqlFile:
+            dbms: mysql
+            encoding: utf8
+            path: db/sql/db_export.sql

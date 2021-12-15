@@ -1,52 +1,22 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-
-<head>
-    <meta charset="utf-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-</head>
-
-<html>
-<title>Hotel</title>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-
-        <a class="navbar-brand">
-            <img src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
-            ${pageContext.request.userPrincipal.name}, worker.
-
-        </a>
-
-        <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/visitor/home">Home</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/visitor/hotels">Hotels</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/visitor/help">Help</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/logout">Exit</a>
-                </li>
-            </ul>
+<header class="p-3 mb-3 border-bottom">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
 
-            <form class="d-flex">
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="/visitor/home" class="nav-link px-2 link-secondary">Home</a></li>
+          <li><a href="/visitor/hotels" class="nav-link px-2 link-dark">Hotels</a></li>
+          <li><a href="/visitor/help" class="nav-link px-2 link-dark">Help</a></li>
+        </ul>
 
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Поиск</button>
-            </form>
-
+        <div class="dropdown text-end">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://img.icons8.com/small/32/000000/gender-neutral-user.png"/>
+          </a>
+          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+          </ul>
         </div>
+      </div>
     </div>
-</nav>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</body>
-</html>
+</header>
