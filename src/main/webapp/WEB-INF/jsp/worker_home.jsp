@@ -16,7 +16,9 @@
 <jsp:include page="header_worker.jsp"/>
 
 <section>
-
+    <div>
+        <jsp:text>Добро пожаловать!</jsp:text>
+    </div>
 </section>
 
 <jsp:include page="footer.jsp"/>
